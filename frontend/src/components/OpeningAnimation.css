@@ -1,0 +1,105 @@
+.opening-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  background-color: var(--bg-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  will-change: opacity;
+}
+
+.stagger-visualizer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+}
+
+.stagger-visualizer .cell {
+  position: relative;
+  background-color: var(--accent-primary);
+  opacity: 0;
+  border-radius: var(--radius-sm);
+  margin: 2px;
+  transform-origin: center center;
+  /* GPU-acceleration hints for buttery-smooth compositing */
+  will-change: transform, opacity, background-color;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.hero-text-container {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  text-align: center;
+}
+
+.hero-title {
+  font-family: var(--font-mono);
+  font-size: 5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+  opacity: 0;
+  text-shadow: 0 0 30px rgba(139, 92, 246, 0.8), 0 0 10px rgba(255, 255, 255, 0.5);
+  /* Slide up then pulse glow, with a gentler cubic-bezier for smoothness */
+  animation:
+    heroSlideUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+    textGlow 3s ease-in-out infinite alternate;
+  animation-delay: 2.5s, 3.8s;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  opacity: 0;
+  animation: heroSlideUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 2.8s;
+}
+
+@keyframes heroSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes textGlow {
+  0%, 100% {
+    text-shadow: 0 0 30px rgba(139, 92, 246, 0.8), 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 50px rgba(236, 72, 153, 0.8), 0 0 20px rgba(255, 255, 255, 0.8);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 3rem;
+  }
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+}

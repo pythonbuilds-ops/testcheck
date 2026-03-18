@@ -1,0 +1,185 @@
+/* ═══════════════════════════════════════════
+   Shimmer Status Task Chain
+   ═══════════════════════════════════════════ */
+
+.task-chain {
+  margin: 0.25rem 0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Inline shimmer status text — acts as expand toggle */
+.task-status-text {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-align: left;
+}
+
+.task-status-text:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.status-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: statusSwap 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.status-label.running {
+  background: linear-gradient(
+    90deg,
+    var(--text-secondary) 0%,
+    var(--accent-primary) 40%,
+    var(--text-secondary) 80%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+.status-label.done {
+  color: #10b981;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes statusSwap {
+  0% { opacity: 0; transform: translateY(6px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.expand-chevron {
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0.5;
+  margin-left: auto;
+}
+
+.task-status-text:hover .expand-chevron {
+  opacity: 1;
+}
+
+.expand-chevron.rotated {
+  transform: rotate(180deg);
+}
+
+/* Expandable detail body */
+.task-chain-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.task-chain-body.open {
+  max-height: 2500px;
+}
+
+.chain-timeline {
+  display: flex;
+  flex-direction: column;
+  padding: 0.25rem 0.75rem 0.5rem;
+  gap: 0.15rem;
+}
+
+/* Steps — minimal, no dots or lines */
+.chain-step {
+  display: flex;
+  align-items: flex-start;
+  padding: 0.2rem 0;
+  animation: stepFadeIn 0.25s ease-out forwards;
+}
+
+@keyframes stepFadeIn {
+  from { opacity: 0; transform: translateX(-6px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.step-content {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Status */
+.step-status-msg {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 400;
+}
+
+.step-icon {
+  color: var(--accent-tertiary);
+  opacity: 0.6;
+  font-size: 0.75rem;
+}
+
+/* Tool Call */
+.step-tool-call {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  border-left: 2px solid var(--accent-primary);
+  background: rgba(139, 92, 246, 0.04);
+  flex-wrap: wrap;
+}
+
+.step-wrench {
+  color: var(--accent-primary);
+  margin-top: 2px;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.tool-name {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.8rem;
+}
+
+.tool-args {
+  color: var(--text-tertiary);
+  font-size: 0.75rem;
+  word-break: break-all;
+  font-family: var(--font-mono);
+  opacity: 0.7;
+}
+
+/* Tool Result */
+.step-tool-result {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  padding-left: 0.35rem;
+}
+
+.result-ok { color: #10b981; margin-top: 1px; flex-shrink: 0; }
+.result-fail { color: #ef4444; margin-top: 1px; flex-shrink: 0; }
+
+.result-text {
+  color: var(--text-secondary);
+  opacity: 0.8;
+  word-break: break-word;
+  line-height: 1.4;
+  font-size: 0.78rem;
+}

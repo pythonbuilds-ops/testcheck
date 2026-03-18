@@ -1,0 +1,94 @@
+.patronus-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #05050A; /* Deep dark background */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  transition: opacity 1.5s ease-out;
+}
+
+.patronus-container.dissolving {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.patronus-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.patronus-overlay {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+  pointer-events: none; /* Let clicks pass through to canvas */
+  z-index: 1001;
+}
+
+.patronus-overlay.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.patronus-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 4rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 1rem 0;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 0 0 20px rgba(186, 230, 253, 0.8),
+               0 0 40px rgba(125, 211, 252, 0.6);
+  animation: pulse-glow 3s infinite alternate ease-in-out;
+}
+
+.patronus-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.2rem;
+  color: #e0f2fe;
+  margin: 0 0 2rem 0;
+  font-weight: 300;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(125, 211, 252, 0.5);
+}
+
+.patronus-prompt {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(186, 230, 253, 0.3);
+  padding: 10px 24px;
+  border-radius: 30px;
+  color: #bae6fd;
+  font-size: 0.9rem;
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  backdrop-filter: blur(4px);
+  transition: all 0.3s ease;
+  animation: float-prompt 4s infinite ease-in-out;
+}
+
+@keyframes pulse-glow {
+  0% { transform: scale(1); text-shadow: 0 0 20px rgba(186, 230, 253, 0.8), 0 0 40px rgba(125, 211, 252, 0.6); }
+  100% { transform: scale(1.02); text-shadow: 0 0 30px rgba(186, 230, 253, 1), 0 0 60px rgba(125, 211, 252, 0.8), 0 0 90px rgba(56, 189, 248, 0.5); }
+}
+
+@keyframes float-prompt {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}

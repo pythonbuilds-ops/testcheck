@@ -1,0 +1,5 @@
+<resources>
+    <color name="phoneagent_primary">#0B4F6C</color>
+    <color name="phoneagent_surface">#F5F8FA</color>
+    <color name="phoneagent_text">#0D1B2A</color>
+</resources>
